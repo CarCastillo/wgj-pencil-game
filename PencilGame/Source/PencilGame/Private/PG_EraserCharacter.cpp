@@ -17,12 +17,12 @@ APG_EraserCharacter::APG_EraserCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
-	SpringArmComponent->bUsePawnControlRotation = true;
-	SpringArmComponent->SetupAttachment(RootComponent);
+	NewSpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("NewSpringArmComponent"));
+	NewSpringArmComponent->bUsePawnControlRotation = true;
+	NewSpringArmComponent->SetupAttachment(RootComponent);
 
 	TPSCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("TPS_CameraComponent"));
-	TPSCameraComponent->SetupAttachment(SpringArmComponent);
+	TPSCameraComponent->SetupAttachment(NewSpringArmComponent);
 
 	HealthComponent = CreateDefaultSubobject<UPG_HealthComponent>(TEXT("HealthComponent"));
 

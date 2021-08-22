@@ -24,7 +24,7 @@ class PENCILGAME_API APG_EraserCharacter : public ACharacter
 protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	USpringArmComponent* SpringArmComponent;
+	USpringArmComponent* NewSpringArmComponent;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UCameraComponent* TPSCameraComponent;
@@ -77,10 +77,8 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void BP_MoveRight(float value);
 
-
 	UFUNCTION(BlueprintImplementableEvent)
 	void BP_CameraShake();
-
 
 	virtual void Jump() override;
 	
