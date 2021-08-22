@@ -19,6 +19,8 @@ protected:
 
 	FTimerHandle TimerHandle_NotifyGameOver;
 
+	FTimerHandle TimerHandle_NotifyVictory;
+
 public:
 
 	UPROPERTY(BlueprintAssignable)
@@ -33,10 +35,15 @@ protected:
 
 	void NotifyGameOver();
 
+	void NotifyVictory();
+
 public:
 
 	APG_GameMode();
 
 	UFUNCTION()
 	void GameOver(APG_EraserCharacter* Character);
+
+	UFUNCTION()
+	void Victory(APG_EraserCharacter* Character);
 };
