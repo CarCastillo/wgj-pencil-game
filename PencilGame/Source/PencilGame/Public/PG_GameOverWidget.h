@@ -7,6 +7,7 @@
 #include "PG_GameOverWidget.generated.h"
 
 class APG_GameMode;
+class USoundCue;
 
 UCLASS()
 class PENCILGAME_API UPG_GameOverWidget : public UUserWidget
@@ -17,6 +18,9 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Setup")
 	APG_GameMode* GameModeReference;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Audio")
+	USoundCue* GameOverSound;
 
 public:
 

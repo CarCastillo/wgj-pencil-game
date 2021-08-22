@@ -3,6 +3,8 @@
 
 #include "PG_GameOverWidget.h"
 #include "PG_GameMode.h"
+#include "Sound/SoundCue.h"
+#include "Kismet/GameplayStatics.h"
 
 void UPG_GameOverWidget::InitializeWidget()
 {
@@ -18,5 +20,6 @@ void UPG_GameOverWidget::InitializeWidget()
 
 void UPG_GameOverWidget::OnGameOver()
 {
+	UGameplayStatics::PlaySound2D(GetWorld(), GameOverSound);
 	SetVisibility(ESlateVisibility::Visible);
 }

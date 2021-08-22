@@ -11,6 +11,7 @@ class UCameraComponent;
 class UStaticMeshComponent;
 class UPG_HealthComponent;
 class APG_GameMode;
+class USoundCue;
 
 UCLASS()
 class PENCILGAME_API APG_EraserCharacter : public ACharacter
@@ -36,11 +37,22 @@ protected:
 	
 	APG_GameMode* GameModeReference;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Audio")
+	USoundCue* SmallJumpSound;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Audio")
+	USoundCue* VictorySound;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Audio")
+	USoundCue* HurtSound;
+
 public:
 	// Sets default values for this character's properties
 	APG_EraserCharacter();
 
 	virtual FVector GetPawnViewLocation() const override;
+
+	void PlayVictorySound();
 
 protected:
 	// Called when the game starts or when spawned

@@ -8,6 +8,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "PG_HealthComponent.h"
 #include "PG_GameMode.h"
+#include "Sound/SoundCue.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 APG_EraserCharacter::APG_EraserCharacter()
@@ -70,6 +72,11 @@ FVector APG_EraserCharacter::GetPawnViewLocation() const
 	return Super::GetPawnViewLocation();
 }
 
+void APG_EraserCharacter::PlayVictorySound()
+{
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), VictorySound, GetActorLocation());
+}
+
 void APG_EraserCharacter::MoveForward(float value)
 {
 	AddMovementInput(GetActorForwardVector() * value);
@@ -83,6 +90,8 @@ void APG_EraserCharacter::MoveRight(float value)
 void APG_EraserCharacter::Jump()
 {
 	Super::Jump();
+
+	UGameplayStatics::PlaySoundAtLocation(GetWorld(), SmallJumpSound, GetActorLocation());
 }
 
 void APG_EraserCharacter::StopJumping()
@@ -94,8 +103,6 @@ void APG_EraserCharacter::OnHealthChange(UPG_HealthComponent* MyHealthComponent,
 {
 	if (HealthComponent->IsDead())
 	{
-		//PlayVoiceSound(DeathSound);
-		
 		if (IsValid(GameModeReference))
 		{
 			GameModeReference->GameOver(this);
@@ -103,7 +110,8 @@ void APG_EraserCharacter::OnHealthChange(UPG_HealthComponent* MyHealthComponent,
 	}
 	else
 	{
-		GetWorld()->GetTimerManager().SetTimer(TimerHandle_Respawn, this, &APG_EraserCharacter::RespawnCharacter, 3.0f, false);	
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), HurtSound, GetActorLocation());
+		GetWorld()->GetTimerManager().SetTimer(TimerHandle_Respawn, this, &APG_EraserCharacter::RespawnCharacter, 2.5f, false);	
 	}
 }
 

@@ -33,6 +33,7 @@ void APG_VictoryZone::NotifyActorBeginOverlap(AActor* OtherActor)
 
 		if (IsValid(PGCharacter))
 		{
+			PGCharacter->PlayVictorySound();
 			GameModeReference->Victory(PGCharacter);
 		}
 	}
