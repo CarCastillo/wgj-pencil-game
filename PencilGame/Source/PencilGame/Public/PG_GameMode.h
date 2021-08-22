@@ -8,19 +8,30 @@
 
 class APG_EraserCharacter;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnGameStateChangeSignature);
+
 UCLASS()
 class PENCILGAME_API APG_GameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
 protected:
 
-		UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Game Flow")
-		FName GameOverMapName;
+	FTimerHandle TimerHandle_NotifyGameOver;
+
+public:
+
+	UPROPERTY(BlueprintAssignable)
+	FOnGameStateChangeSignature OnVictoryDelegate;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnGameStateChangeSignature OnGameOverDelegate;
 
 protected:
 
 	virtual void BeginPlay() override;
+
+	void NotifyGameOver();
 
 public:
 

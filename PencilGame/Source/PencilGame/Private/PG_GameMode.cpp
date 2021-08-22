@@ -9,7 +9,6 @@
 
 APG_GameMode::APG_GameMode()
 {
-	GameOverMapName = "GameOverMap";
 }
 
 void APG_GameMode::BeginPlay()
@@ -19,9 +18,12 @@ void APG_GameMode::BeginPlay()
 
 void APG_GameMode::GameOver(APG_EraserCharacter* Character)
 {
-	Character->GetMovementComponent()->StopMovementImmediately();
-	Character->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	Character->DisableInput(nullptr);
 
-	UE_LOG(LogTemp, Warning, TEXT("GAME OVER!!!"));
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle_NotifyGameOver, this, &APG_GameMode::NotifyGameOver, 2.0f, false);
+}
+
+void APG_GameMode::NotifyGameOver()
+{
+	OnGameOverDelegate.Broadcast();
 }
