@@ -6,6 +6,8 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "PG_HealthComponent.h"
+#include "PG_GameMode.h"
 
 // Sets default values
 APG_EraserCharacter::APG_EraserCharacter()
@@ -19,6 +21,8 @@ APG_EraserCharacter::APG_EraserCharacter()
 
 	TPSCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("TPS_CameraComponent"));
 	TPSCameraComponent->SetupAttachment(SpringArmComponent);
+
+	HealthComponent = CreateDefaultSubobject<UPG_HealthComponent>(TEXT("HealthComponent"));
 }
 
 // Called when the game starts or when spawned
@@ -26,6 +30,11 @@ void APG_EraserCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	SpawnLocation = GetActorLocation();
+
+	GameModeReference = Cast<APG_GameMode>(GetWorld()->GetAuthGameMode());
+
+	HealthComponent->OnHealthChangeDelegate.AddDynamic(this, &APG_EraserCharacter::OnHealthChange);
 }
 
 // Called every frame
@@ -79,4 +88,26 @@ void APG_EraserCharacter::Jump()
 void APG_EraserCharacter::StopJumping()
 {
 	Super::StopJumping();
+}
+
+void APG_EraserCharacter::OnHealthChange(UPG_HealthComponent* MyHealthComponent, AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
+{
+	if (HealthComponent->IsDead())
+	{
+		//PlayVoiceSound(DeathSound);
+		
+		if (IsValid(GameModeReference))
+		{
+			GameModeReference->GameOver(this);
+		}
+	}
+	else
+	{
+		GetWorld()->GetTimerManager().SetTimer(TimerHandle_Respawn, this, &APG_EraserCharacter::RespawnCharacter, 3.0f, false);	
+	}
+}
+
+void APG_EraserCharacter::RespawnCharacter()
+{
+	SetActorLocation(SpawnLocation);
 }

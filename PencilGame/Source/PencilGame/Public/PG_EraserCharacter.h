@@ -9,6 +9,8 @@
 class USpringArmComponent;
 class UCameraComponent;
 class UStaticMeshComponent;
+class UPG_HealthComponent;
+class APG_GameMode;
 
 UCLASS()
 class PENCILGAME_API APG_EraserCharacter : public ACharacter
@@ -22,6 +24,17 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UCameraComponent* TPSCameraComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UPG_HealthComponent* HealthComponent;
+
+protected:
+
+	FVector SpawnLocation;
+
+	FTimerHandle TimerHandle_Respawn;
+	
+	APG_GameMode* GameModeReference;
 
 public:
 	// Sets default values for this character's properties
@@ -40,6 +53,11 @@ protected:
 	virtual void Jump() override;
 
 	virtual void StopJumping() override;
+
+	UFUNCTION()
+	void OnHealthChange(UPG_HealthComponent* MyHealthComponent, AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser);
+
+	void RespawnCharacter();
 
 public:	
 	// Called every frame
