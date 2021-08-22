@@ -34,6 +34,9 @@ protected:
 
 protected:
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Camera Movement")
+	bool bIsInFreelookMode;
+
 	FVector SpawnLocation;
 
 	FTimerHandle TimerHandle_Respawn;
@@ -66,9 +69,22 @@ protected:
 
 	void MoveForward(float value);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void BP_MoveFoward(float value);
+
 	void MoveRight(float value);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void BP_MoveRight(float value);
+
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void BP_CameraShake();
+
+
 	virtual void Jump() override;
+	
+	void ChangeFreelookMode();
 
 	virtual void StopJumping() override;
 

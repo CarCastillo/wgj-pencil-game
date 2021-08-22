@@ -25,6 +25,8 @@ APG_EraserCharacter::APG_EraserCharacter()
 	TPSCameraComponent->SetupAttachment(SpringArmComponent);
 
 	HealthComponent = CreateDefaultSubobject<UPG_HealthComponent>(TEXT("HealthComponent"));
+
+	bIsInFreelookMode = false;
 }
 
 // Called when the game starts or when spawned
@@ -59,6 +61,9 @@ void APG_EraserCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &APG_EraserCharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &APG_EraserCharacter::StopJumping);
+
+	PlayerInputComponent->BindAction("Freelook", IE_Pressed, this, &APG_EraserCharacter::ChangeFreelookMode);
+	PlayerInputComponent->BindAction("Freelook", IE_Released, this, &APG_EraserCharacter::ChangeFreelookMode);
 }
 
 FVector APG_EraserCharacter::GetPawnViewLocation() const
@@ -79,12 +84,28 @@ void APG_EraserCharacter::PlayVictorySound()
 
 void APG_EraserCharacter::MoveForward(float value)
 {
-	AddMovementInput(GetActorForwardVector() * value);
+	if (!bIsInFreelookMode)
+	{
+		AddMovementInput(GetActorForwardVector() * value);
+
+	}
+	else
+	{
+		BP_MoveFoward(value);
+	}
 }
 
 void APG_EraserCharacter::MoveRight(float value)
 {
-	AddMovementInput(GetActorRightVector() * value);
+	if (!bIsInFreelookMode)
+	{
+		AddMovementInput(GetActorRightVector() * value);
+	}
+	else
+	{
+		BP_MoveRight(value);
+	}
+
 }
 
 void APG_EraserCharacter::Jump()
@@ -92,6 +113,20 @@ void APG_EraserCharacter::Jump()
 	Super::Jump();
 
 	UGameplayStatics::PlaySoundAtLocation(GetWorld(), SmallJumpSound, GetActorLocation());
+}
+
+void APG_EraserCharacter::ChangeFreelookMode()
+{
+	if (bIsInFreelookMode)
+	{
+		bIsInFreelookMode = false;
+		return;
+	}
+	else
+	{
+		bIsInFreelookMode = true;
+		return;
+	}
 }
 
 void APG_EraserCharacter::StopJumping()
@@ -111,6 +146,7 @@ void APG_EraserCharacter::OnHealthChange(UPG_HealthComponent* MyHealthComponent,
 	}
 	else
 	{
+		BP_CameraShake();
 		UGameplayStatics::PlaySoundAtLocation(GetWorld(), HurtSound, GetActorLocation());
 		GetWorld()->GetTimerManager().SetTimer(TimerHandle_Respawn, this, &APG_EraserCharacter::RespawnCharacter, 2.5f, false);	
 	}
