@@ -6,6 +6,9 @@
 #include "GameFramework/Character.h"
 #include "PG_EraserCharacter.generated.h"
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDamageReceivedSignature);
+
 class USpringArmComponent;
 class UCameraComponent;
 class UStaticMeshComponent;
@@ -46,6 +49,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Audio")
 	USoundCue* HurtSound;
 
+public:
+	UPROPERTY(BlueprintAssignable)
+	FOnDamageReceivedSignature OnDamageReceivedDelegate;
 public:
 	// Sets default values for this character's properties
 	APG_EraserCharacter();

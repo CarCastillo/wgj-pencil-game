@@ -101,6 +101,7 @@ void APG_EraserCharacter::StopJumping()
 
 void APG_EraserCharacter::OnHealthChange(UPG_HealthComponent* MyHealthComponent, AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
+	OnDamageReceivedDelegate.Broadcast();
 	if (HealthComponent->IsDead())
 	{
 		if (IsValid(GameModeReference))
