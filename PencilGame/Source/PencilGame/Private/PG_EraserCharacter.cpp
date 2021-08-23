@@ -112,7 +112,10 @@ void APG_EraserCharacter::Jump()
 {
 	Super::Jump();
 
-	UGameplayStatics::PlaySoundAtLocation(GetWorld(), SmallJumpSound, GetActorLocation());
+	if (!GetMovementComponent()->IsFalling())
+	{
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), SmallJumpSound, GetActorLocation());
+	}
 }
 
 void APG_EraserCharacter::ChangeFreelookMode()
