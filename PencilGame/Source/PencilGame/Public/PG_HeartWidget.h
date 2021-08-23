@@ -4,17 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "PG_BorradoraIconWidget.generated.h"
+#include "PG_HeartWidget.generated.h"
+
+class APG_EraserCharacter;
+class APG_GameMode;
 
 /**
  * 
  */
-
-class APG_GameMode;
-class APG_EraserCharacter;
-
 UCLASS()
-class PENCILGAME_API UPG_BorradoraIconWidget : public UUserWidget
+class PENCILGAME_API UPG_HeartWidget : public UUserWidget
 {
 	GENERATED_BODY()
 
@@ -25,22 +24,22 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Reference")
 	APG_EraserCharacter* PlayerReference;
 
-protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Lives")
+	int NumberOfLives;
 
+protected:
+	
 	UFUNCTION(BlueprintCallable)
 	void InitializeWidget();
 
 	UFUNCTION()
-	void ChangeToDamagedIcon();
+	void ReduceNumberOfLives();
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void BP_ChangeToDamagedIcon();
 
-    UFUNCTION()
+	UFUNCTION()
 	void DeleteDueToEndGame();
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void BP_DeleteDueToEndGame();
-
 	
 };

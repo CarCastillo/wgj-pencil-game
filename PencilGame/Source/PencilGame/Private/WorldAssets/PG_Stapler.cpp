@@ -46,7 +46,7 @@ void APG_Stapler::LaunchPlayer(UPrimitiveComponent* OverlappedComponent, AActor*
 		if (IsValid(OverlappedCharacter))
 		{
 			PlayLaunchingSound();
-a		    OverlappedCharacter->LaunchCharacter(LaunchDirection, false, false);
+		    OverlappedCharacter->LaunchCharacter(LaunchDirection, false, false);
 		}
 	}
 

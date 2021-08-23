@@ -13,7 +13,8 @@ void UPG_BorradoraIconWidget::InitializeWidget()
 
 	if (IsValid(GameModeReference))
 	{
-		GameModeReference->OnGameOverDelegate.AddDynamic(this, &UPG_BorradoraIconWidget::DeleteDueToGameOver);
+		GameModeReference->OnGameOverDelegate.AddDynamic(this, &UPG_BorradoraIconWidget::DeleteDueToEndGame);
+		GameModeReference->OnVictoryDelegate.AddDynamic(this, &UPG_BorradoraIconWidget::DeleteDueToEndGame);
 	}
 
 	if (IsValid(PlayerReference))
@@ -27,7 +28,7 @@ void UPG_BorradoraIconWidget::ChangeToDamagedIcon()
 	BP_ChangeToDamagedIcon();
 }
 
-void UPG_BorradoraIconWidget::DeleteDueToGameOver()
+void UPG_BorradoraIconWidget::DeleteDueToEndGame()
 {
-	BP_DeleteDueToGameOver();
+	BP_DeleteDueToEndGame();
 }
