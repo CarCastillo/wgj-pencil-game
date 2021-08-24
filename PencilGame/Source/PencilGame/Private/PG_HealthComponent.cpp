@@ -46,6 +46,4 @@ void UPG_HealthComponent::TakingDamage(AActor* DamagedActor, float Damage, const
 	}
 
 	OnHealthChangeDelegate.Broadcast(this, DamagedActor, Damage, DamageType, InstigatedBy, DamageCauser);
-
-	UE_LOG(LogTemp, Log, TEXT("My Health is: %s"), *FString::SanitizeFloat(Health));
 }

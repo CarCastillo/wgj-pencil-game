@@ -39,6 +39,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	bool IsDead() const { return bIsDead; };
 
+	float GetCurrentHealth() const { return Health; };
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

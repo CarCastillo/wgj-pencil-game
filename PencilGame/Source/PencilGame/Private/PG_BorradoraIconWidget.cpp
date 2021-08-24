@@ -23,7 +23,7 @@ void UPG_BorradoraIconWidget::InitializeWidget()
 	}
 }
 
-void UPG_BorradoraIconWidget::ChangeToDamagedIcon()
+void UPG_BorradoraIconWidget::ChangeToDamagedIcon(float CurrentHealth)
 {
 	BP_ChangeToDamagedIcon();
 }

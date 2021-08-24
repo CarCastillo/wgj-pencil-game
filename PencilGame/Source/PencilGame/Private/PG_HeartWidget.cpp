@@ -26,10 +26,9 @@ void UPG_HeartWidget::InitializeWidget()
 	}
 }
 
-void UPG_HeartWidget::ReduceNumberOfLives()
+void UPG_HeartWidget::ReduceNumberOfLives(float CurrentHealth)
 {
-	int OldNumOfLives = NumberOfLives;
-	NumberOfLives = FMath::Clamp((OldNumOfLives-1), 0, 5);
+	NumberOfLives = CurrentHealth;
 }
 
 void UPG_HeartWidget::DeleteDueToEndGame()

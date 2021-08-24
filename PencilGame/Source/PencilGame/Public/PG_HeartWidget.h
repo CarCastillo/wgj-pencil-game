@@ -33,7 +33,7 @@ protected:
 	void InitializeWidget();
 
 	UFUNCTION()
-	void ReduceNumberOfLives();
+	void ReduceNumberOfLives(float CurrentHealth);
 
 
 	UFUNCTION()

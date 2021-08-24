@@ -4,43 +4,33 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "PG_BorradoraIconWidget.generated.h"
+#include "PG_Timer.generated.h"
 
 /**
+ * 
+ * 
  * 
  */
 
 class APG_GameMode;
-class APG_EraserCharacter;
 
 UCLASS()
-class PENCILGAME_API UPG_BorradoraIconWidget : public UUserWidget
+class PENCILGAME_API UPG_Timer : public UUserWidget
 {
 	GENERATED_BODY()
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Reference")
 	APG_GameMode* GameModeReference;
-
-	UPROPERTY(BlueprintReadOnly, Category = "Reference")
-	APG_EraserCharacter* PlayerReference;
-
+	
 protected:
 
 	UFUNCTION(BlueprintCallable)
 	void InitializeWidget();
 
 	UFUNCTION()
-	void ChangeToDamagedIcon(float CurrentHealth);
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void BP_ChangeToDamagedIcon();
-
-    UFUNCTION()
 	void DeleteDueToEndGame();
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void BP_DeleteDueToEndGame();
-
-	
 };
