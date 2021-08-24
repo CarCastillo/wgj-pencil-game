@@ -37,6 +37,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Camera Movement")
 	bool bIsInFreelookMode;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Game State")
+	bool bHasWonGame;
+
 	FVector SpawnLocation;
 
 	FTimerHandle TimerHandle_Respawn;
@@ -62,6 +65,8 @@ public:
 	virtual FVector GetPawnViewLocation() const override;
 
 	void PlayVictorySound();
+
+	void SetHasWonGame(bool NewState) { bHasWonGame = NewState; };
 
 protected:
 	// Called when the game starts or when spawned
