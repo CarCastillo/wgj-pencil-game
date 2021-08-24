@@ -22,4 +22,10 @@ void UPG_GameOverWidget::OnGameOver()
 {
 	UGameplayStatics::PlaySound2D(GetWorld(), GameOverSound);
 	SetVisibility(ESlateVisibility::Visible);
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle_CloseScreen, this, &UPG_GameOverWidget::GoToMainMenu, 5.5f, false);
+}
+
+void UPG_GameOverWidget::GoToMainMenu()
+{
+	UGameplayStatics::OpenLevel(GetWorld(), "MainMenuMap");
 }

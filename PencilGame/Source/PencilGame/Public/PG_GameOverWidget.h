@@ -22,6 +22,8 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Audio")
 	USoundCue* GameOverSound;
 
+	FTimerHandle TimerHandle_CloseScreen;
+
 public:
 
 	UFUNCTION(BlueprintCallable)
@@ -30,4 +32,6 @@ public:
 	UFUNCTION()
 	void OnGameOver();
 	
+	UFUNCTION()
+	void GoToMainMenu();
 };
