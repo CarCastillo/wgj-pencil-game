@@ -3,6 +3,8 @@
 
 #include "PG_VictoryWidget.h"
 #include "PG_GameMode.h"
+#include "Sound/SoundCue.h"
+#include "Kismet/GameplayStatics.h"
 
 void UPG_VictoryWidget::InitializeWidget()
 {
@@ -18,5 +20,7 @@ void UPG_VictoryWidget::InitializeWidget()
 
 void UPG_VictoryWidget::OnVictory()
 {
+	BP_OnVictory();
+	UGameplayStatics::PlaySound2D(GetWorld(), WinSound);
 	SetVisibility(ESlateVisibility::Visible);
 }

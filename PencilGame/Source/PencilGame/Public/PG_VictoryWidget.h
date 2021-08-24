@@ -7,6 +7,7 @@
 #include "PG_VictoryWidget.generated.h"
 
 class APG_GameMode;
+class USoundCue;
 
 UCLASS()
 class PENCILGAME_API UPG_VictoryWidget : public UUserWidget
@@ -18,6 +19,9 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Setup")
 	APG_GameMode* GameModeReference;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Audio")
+	USoundCue* WinSound;
+
 public:
 
 	UFUNCTION(BlueprintCallable)
@@ -25,5 +29,8 @@ public:
 
 	UFUNCTION()
 	void OnVictory();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void BP_OnVictory();
 	
 };
